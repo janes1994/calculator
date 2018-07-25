@@ -1,0 +1,54 @@
+.App {
+  text-align: center;
+  border: #333 solid 2px;
+  width: 350px;
+  margin: auto;
+  padding: 18px;
+  border-radius: 3%;
+  background-color: #bae1ff;
+  font-family: Arial, Helvetica, sans-serif;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
+}
+
+.view {
+  grid-column: 1/5;
+  height: 50px;
+  border: #333 solid 2px;
+  text-align: right;
+  font-size: 38px;
+  border-radius: 3%;
+  background-color: #fff;
+  padding-right: 15px;
+}
+
+.button {
+  height: 40px;
+  background-color: #f7f7f7;
+  border: #333 solid 1px;
+  font-size: 22px;
+  color: #232323;
+  border-radius: 8%;
+  cursor: pointer;
+}
+
+.button:hover {
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
+.button:active{
+  border: #3c66d1 solid 2px;
+  box-sizing: border-box;
+}
+
+.equal {
+  background-color: #517ae2;
+  color: #f2f2f2;
+}
+
+.operator {
+  background-color: #d6d6d6;
+}

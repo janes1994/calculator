@@ -3,82 +3,72 @@ import './App.css';
 
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       number1: [],
       number2: [],
-      operator: null,
-      result: 0,
-      sumClicked: false
+      operator1: null,
+      result: 0
     }
   }
 
-  holdNumber = (e) => {
-    const num = parseInt(e.target.innerHTML)
-    
-    if (this.state.operator === null) {
-      this.setState({number1: this.state.number1 + num})
-    } else {
-      this.setState({number2: this.state.number2 + num})
-    }
+  holdNumber = (args) => {
+    const number1 = this.state.number1
+    const number2 = this.state.number2
+    const operator1 = this.state.operator1
 
+    if (operator1 === null) {
+      this.setState({number1: this.state.number1 + args})
+    } else  {
+      this.setState({number2: this.state.number2 + args})
+    }
   }
 
-  holdOperator = (e) => {
-    const oprt = e.target.innerHTML
-    this.setState({operator: oprt})
+  holdOperator = (args) => {
+    const operator1 = this.state.operator1
+    this.setState({operator1: args})
   }
 
   sumNumber = () => {
-    const num1 = parseInt(this.state.number1)
-    const num2 = parseInt(this.state.number2)
+    const operator1 = this.state.operator1
 
-    switch(this.state.operator){
-      case "+" :
+    switch(operator1) {
+      case "+":
         this.setState({
-          result: num1 + num2,
+          result: parseInt(this.state.number1) + parseInt(this.state.number2),
           number1: [],
           number2: [],
-          operator: null,
-          sumClicked: !this.state.sumClicked
-        });
+          operator1: null,
+        })
         break;
-      case "-" :
+
+      case "-":
         this.setState({
-          result: num1 - num2,
+          result: parseInt(this.state.number1) - parseInt(this.state.number2),
           number1: [],
           number2: [],
-          operator: null,
-          sumClicked: !this.state.sumClicked
-        });
+          operator1: null,
+        })
         break;
-      case "X" :
+      case "x":
         this.setState({
-          result: num1 * num2,
+          result: parseInt(this.state.number1) * parseInt(this.state.number2),
           number1: [],
           number2: [],
-          operator: null,
-          sumClicked: !this.state.sumClicked
-        });
+          operator1: null,
+        })
         break;
-      case "/" :
+      case "/":
         this.setState({
-          result: num1 / num2,
+          result: parseInt(this.state.number1) / parseInt(this.state.number2),
           number1: [],
           number2: [],
-          operator: null,
-          sumClicked: !this.state.sumClicked
-        });
+          operator1: null,
+        })
         break;
-      case "%" :
-        this.setState({
-          result: num1 % num2,
-          number1: [],
-          number2: [],
-          operator: null,
-          sumClicked: !this.state.sumClicked
-        });
-        break;
+
+      default:
+        return operator1
     }
   }
 
@@ -86,7 +76,6 @@ class App extends Component {
     this.setState({
       number1: [],
       number2: [],
-      operator: null,
       result: 0
     })
   }
@@ -94,46 +83,33 @@ class App extends Component {
   render() {
     const number1 = this.state.number1
     const number2 = this.state.number2
-    const operator = this.state.operator
+    const operator1 = this.state.operator1
     const result = this.state.result
-
-    let viewComp;
-    if(result === 0) {
-      viewComp = <div className="view">{number1} {operator} {number2}</div>
-    } else {
-      viewComp = <div className="view">{result}</div>
-    }
 
     return (
       <div className="App">
-      {viewComp}
-        {/* <div className="view">{result}</div>
-        <div className="view">{number1} {operator} {number2}</div> */}
-
-        <div className="button operator">(</div>
-        <div className="button operator">)</div>
-        <div className="button operator" onClick={this.holdOperator}>%</div>
+        <div className="view">{result}</div>
+        <div className="view"> {number1} {operator1} {number2} </div>
+        
+        <div className="button" onClick={() => this.holdNumber(7)}>7</div>
+        <div className="button" onClick={() => this.holdNumber(8)}>8</div>
+        <div className="button" onClick={() => this.holdNumber(9)}>9</div>
         <div className="button operator" onClick={this.resetState}>AC</div>
+        
+        <div className="button" onClick={() => this.holdNumber(4)}>4</div>
+        <div className="button" onClick={() => this.holdNumber(5)}>5</div>
+        <div className="button" onClick={() => this.holdNumber(6)}>6</div>
+        <div className="button operator" onClick={() => this.holdOperator("/")}>/</div>
+      
+        <div className="button" onClick={() => this.holdNumber(1)}>1</div>
+        <div className="button" onClick={() => this.holdNumber(2)}>2</div>
+        <div className="button" onClick={() => this.holdNumber(3)}>3</div>
+        <div className="button operator" onClick={() => this.holdOperator("x")}>x</div>
 
-        <div className="button" onClick={this.holdNumber}>7</div>
-        <div className="button" onClick={this.holdNumber}>8</div>
-        <div className="button" onClick={this.holdNumber}>9</div>
-        <div className="button operator" onClick={this.holdOperator}>/</div>
-
-        <div className="button" onClick={this.holdNumber}>4</div>
-        <div className="button" onClick={this.holdNumber}>5</div>
-        <div className="button" onClick={this.holdNumber}>6</div>
-        <div className="button operator" onClick={this.holdOperator}>X</div>
-
-        <div className="button" onClick={this.holdNumber}>1</div>
-        <div className="button" onClick={this.holdNumber}>2</div>
-        <div className="button" onClick={this.holdNumber}>3</div>
-        <div className="button operator" onClick={this.holdOperator}>-</div>
-
-        <div className="button" onClick={this.holdNumber}>0</div>
-        <div className="button">.</div>
+        <div className="button" onClick={() => this.holdNumber(7)}>0</div>
         <div className="button equal" onClick={this.sumNumber}>=</div>
-        <div className="button operator" onClick={this.holdOperator}>+</div>
+        <div className="button operator" onClick={() => this.holdOperator("-")}>-</div>
+        <div className="button operator" onClick={() => this.holdOperator("+")}>+</div>
       </div>
     );
   }
